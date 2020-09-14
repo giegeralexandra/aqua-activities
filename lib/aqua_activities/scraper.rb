@@ -4,7 +4,7 @@
 #require_relative './activity.rb'
 #require_relative './activitytime.rb'
 
-class Scraper
+class AquaActivities::Scraper
 
     def get_page
         doc = Nokogiri::HTML(open("https://dwazoo.com/feeding-and-talks/"))
@@ -18,8 +18,8 @@ class Scraper
         self.get_activity.each do |activity|
             if activity.text.include?("Crocodiles")
                 array = activity.text.split(" – ")
-                new_activity = Activity.new 
-                new_time = ActivityTime.new 
+                new_activity = AquaActivities::Activity.new 
+                new_time = AquaActivities::ActivityTime.new 
                 new_time.name = array[0].split("are").first.strip + " Feeding"
                 new_time.time = "Saturdays only at " + array[1].strip
                 new_time.room = "Unknown"
@@ -28,8 +28,8 @@ class Scraper
                 new_activity.room = "Unknown"
             else 
                 array = activity.text.split(/[()–]/)
-                new_activity = Activity.new
-                new_time = ActivityTime.new 
+                new_activity = AquaActivities::Activity.new
+                new_time = AquaActivities::ActivityTime.new 
                 new_time.time = array[0].strip
                 new_activity.time = array[0].strip
                 if array[2] == nil 

@@ -9,7 +9,7 @@ class AquaActivities::CLI
 
     def initialize(name = "guest")
         @name = name 
-        Scraper.new.make_activity
+        AquaActivities::Scraper.new.make_activity
         greeting 
     end
 
@@ -47,7 +47,7 @@ class AquaActivities::CLI
     def activity_menu 
         puts 
         puts "Please input a number from the options below to view the time and room of the activity chosen."
-        Activity.all.each.with_index(1) do |activity, i|
+        AquaActivities::Activity.all.each.with_index(1) do |activity, i|
             puts "Enter #{i} for #{activity.name}"
         end
         new_input = input_to_integer
@@ -62,7 +62,7 @@ class AquaActivities::CLI
     def time_menu 
         puts 
         puts "Please input a number from the options below to view the activity and room of the time chosen."
-        ActivityTime.all.each.with_index(1) do |time, i|
+        AquaActivities::ActivityTime.all.each.with_index(1) do |time, i|
             puts "Enter #{i} for #{time.time}"
         end
         new_input = input_to_integer
@@ -75,15 +75,15 @@ class AquaActivities::CLI
     end
 
     def valid_activity_option?(user_input)
-        user_input <= Activity.all.length 
+        user_input <= AquaActivities::Activity.all.length 
     end
 
     def valid_time_option?(user_input)
-        user_input <= ActivityTime.all.length
+        user_input <= AquaActivities::ActivityTime.all.length
     end
 
     def print_activity_details(user_input)
-        chosen_activity = Activity.all[(user_input)-1]
+        chosen_activity = AquaActivities::Activity.all[(user_input)-1]
         puts 
         puts "Activity: #{chosen_activity.name}"
         puts "  Time: #{chosen_activity.time}"
@@ -93,10 +93,10 @@ class AquaActivities::CLI
     end
 
     def print_time_details(user_input)
-        chosen_time = ActivityTime.all[(user_input)-1]
+        chosen_time = AquaActivities::ActivityTime.all[(user_input)-1]
         puts 
         puts "Time: #{chosen_time.time}"
-        puts "  Activity: #{chosen_time.namel}"
+        puts "  Activity: #{chosen_time.name}"
         puts "  Room: #{chosen_time.room}"
         puts 
         main_menu

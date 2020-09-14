@@ -1,8 +1,8 @@
-require_relative "./activities/version.rb"
-require_relative './activities/cli.rb'
-require_relative './activities/activitytime.rb'
-require_relative './activities/activity.rb'
-require_relative './activities/scraper.rb'
+require_relative "./aqua_activities/version.rb"
+require_relative './aqua_activities/cli.rb'
+require_relative './aqua_activities/activity_time.rb'
+require_relative './aqua_activities/activity.rb'
+require_relative './aqua_activities/scraper.rb'
 require 'pry'
 require 'nokogiri'
 require 'open-uri'

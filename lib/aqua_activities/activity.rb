@@ -1,4 +1,4 @@
-class Activity 
+class AquaActivities::Activity 
 
     attr_accessor :name, :time, :room 
 

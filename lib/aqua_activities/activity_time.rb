@@ -1,7 +1,7 @@
 class AquaActivities::ActivityTime
 
     attr_accessor :name, :time, :room 
-    
+
     @@all = [] 
 
     def initialize
@@ -9,8 +9,7 @@ class AquaActivities::ActivityTime
     end
 
     def self.all
-        @@all 
+        @@all
     end
-
-
+   
 end

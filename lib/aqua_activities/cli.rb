@@ -1,13 +1,8 @@
-#require 'pry'
-#require_relative './activitytime.rb'
-#require_relative './activity.rb'
-#require_relative './scraper'
-
 class AquaActivities::CLI 
 
     attr_accessor :name 
 
-    def initialize(name = "guest")
+    def initialize(name = "Guest")
         @name = name 
         AquaActivities::Scraper.new.make_activity
         greeting 
@@ -32,7 +27,7 @@ class AquaActivities::CLI
         elsif input == 3
             exit_game 
         else 
-            puts "\nInvalid menu option.\n"
+            puts "\nInvalid menu option."
             main_menu
         end
     end
@@ -42,8 +37,11 @@ class AquaActivities::CLI
         AquaActivities::Activity.all.each.with_index(1) do |activity, i|
             puts "Enter #{i} for #{activity.name}"
         end
+        puts "Enter #{AquaActivities::Activity.all.length+1} for all activities and details"
         new_input = gets.strip.to_i
-        if valid_activity_option?(new_input)
+        if new_input == (AquaActivities::Activity.all.length+1)
+            print_all_activities_details
+        elsif valid_activity_option?(new_input)
             print_activity_details(new_input)
         else 
             puts "\nInvalid menu option."
@@ -56,8 +54,11 @@ class AquaActivities::CLI
         AquaActivities::ActivityTime.all.each.with_index(1) do |time, i|
             puts "Enter #{i} for #{time.time}"
         end
+        puts "Enter #{AquaActivities::ActivityTime.all.length+1} for all times and details"
         new_input = gets.strip.to_i
-        if valid_time_option?(new_input)
+        if new_input == (AquaActivities::ActivityTime.all.length+1)
+            print_all_times_details
+        elsif valid_time_option?(new_input)
             print_time_details(new_input)
         else 
             puts "\nInvalid menu option"
@@ -86,6 +87,24 @@ class AquaActivities::CLI
         puts "\nTime: #{chosen_time.time}"
         puts "  Activity: #{chosen_time.name}"
         puts "  Room: #{chosen_time.room}\n\n"
+        main_menu
+    end
+
+    def print_all_activities_details
+        AquaActivities::Activity.all.each do |activity|
+            puts "\nActivity: #{activity.name}"
+            puts "  Time: #{activity.time}"
+            puts "  Room: #{activity.room}\n\n"
+        end
+        main_menu
+    end
+
+    def print_all_times_details
+        AquaActivities::ActivityTime.all.each do |time|
+            puts "\nTime: #{time.time}"
+            puts "  Activity: #{time.name}"
+            puts "  Room: #{time.room}\n\n"
+        end
         main_menu
     end
 

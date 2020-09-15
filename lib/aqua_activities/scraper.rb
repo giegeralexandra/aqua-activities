@@ -1,9 +1,3 @@
-#require 'pry'
-#require 'nokogiri'
-#require 'open-uri'
-#require_relative './activity.rb'
-#require_relative './activitytime.rb'
-
 class AquaActivities::Scraper
 
     def get_page
@@ -36,8 +30,8 @@ class AquaActivities::Scraper
                     new_activity.room = "Unknown"
                     new_time.room = "Unknown"
                 else 
-                    new_activity.room = array[2].strip 
-                    new_time.room = array[2].strip 
+                    new_activity.room = array[2].strip.titleize
+                    new_time.room = array[2].strip.titleize
                 end
                 if activity.text.include?("Talk")
                     new_activity.name = array[1].strip
@@ -49,15 +43,4 @@ class AquaActivities::Scraper
             end
         end
     end
-    
-
-    #def print_activity
-        #self.make_activity 
-        #Activity.all.each do |activity|
-            #puts "Activity: #{activity.animal}"
-            #puts "  Time: #{activity.time}"
-            #puts "  Room: #{activity.room}"
-        #end
-    #end
-
 end

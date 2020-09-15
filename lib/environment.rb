@@ -9,6 +9,15 @@ require 'open-uri'
 
 
 module AquaActivities
-  class Error < StandardError; end
-  # Your code goes here...
+  class Error < StandardError; 
+  end
 end
+
+class String
+  def titleize
+    self.split(" ").map{|word| word.capitalize}.join(" ")
+  end
+end
+
+
+

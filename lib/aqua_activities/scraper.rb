@@ -26,19 +26,19 @@ class AquaActivities::Scraper
                 new_time = AquaActivities::ActivityTime.new 
                 new_activity.time = array[0].strip
                 new_time.time = array[0].strip
-                if array[2] == nil 
-                    new_activity.room = "Unknown"
-                    new_time.room = "Unknown"
-                else 
-                    new_activity.room = array[2].strip.titleize
-                    new_time.room = array[2].strip.titleize
-                end
                 if activity.text.include?("Talk")
                     new_activity.name = array[1].strip
                     new_time.name = array[1].strip
                 else 
                     new_activity.name = array[1].strip + " Feeding"
                     new_time.name = array[1].strip + " Feeding"
+                end
+                if array[2] == nil 
+                    new_activity.room = "Unknown"
+                    new_time.room = "Unknown"
+                else 
+                    new_activity.room = array[2].strip.titleize
+                    new_time.room = array[2].strip.titleize
                 end
             end
         end

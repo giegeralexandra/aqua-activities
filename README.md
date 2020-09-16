@@ -16,8 +16,6 @@ Or install it yourself as:
 
     $ gem install aqua_activities
 
-Run bin/aqua_activities.rb and a new instance will begin with a greeting. 
-
 ## Usage
 
 Execute bin/aqua_activities.rb to run Aqua_Activities. 

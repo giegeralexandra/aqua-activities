@@ -18,8 +18,8 @@ class AquaActivities::CLI
     end
 
 
-    def get_input_to_integer
-        gets.strip.to_i 
+    def get_input_to_index
+        gets.strip.to_i-1 
     end
 
 
@@ -40,7 +40,7 @@ class AquaActivities::CLI
         puts "Enter 2 to view all activity times"
         puts "Enter 3 to exit"
         
-        user_input = get_input_to_integer
+        user_input = gets.strip.to_i 
         if user_input == 1
             activity_menu 
         elsif user_input == 2
@@ -57,18 +57,20 @@ class AquaActivities::CLI
     def activity_menu 
         AquaActivities::Formatting.slashes 
         puts "\nPlease input a number from the options below to view the time and room of the activity chosen."
-        AquaActivities::Activity.all.each.with_index(1) do |activity, i|
-            puts "Enter #{i} for #{activity.name}"
+        activities = AquaActivities::Activity.all.collect{|activity| activity.name}.uniq
+        activities.each.with_index(1) do |activity, i|
+            puts "Enter #{i} for #{activity}"
         end
-        puts "Enter #{AquaActivities::Activity.all.length+1} for all activities and details"
+        puts "Enter #{activities.length+1} for All Activities and Details"
         
-        user_input = get_input_to_integer
-        if user_input == (AquaActivities::Activity.all.length+1)
+        user_input = get_input_to_index
+        if user_input == (activities.length)
             AquaActivities::Formatting.slashes 
             AquaActivities::Activity.print_all_activities_details
             main_menu
         elsif valid_activity_option?(user_input)
-            print_activity_details(user_input)
+            activity_name = activities[user_input]
+            print_activity_details(activity_name)
             main_menu
         else 
             puts "Invalid menu option.".colorize(:red)
@@ -80,18 +82,20 @@ class AquaActivities::CLI
     def time_menu 
         AquaActivities::Formatting.slashes 
         puts "\nPlease input a number from the options below to view the activity and room of the time chosen."
-        AquaActivities::ActivityTime.all.each.with_index(1) do |time, i|
-            puts "Enter #{i} for #{time.time}"
+        times = AquaActivities::ActivityTime.all.collect{|time| time.name}.uniq
+        times.each.with_index(1) do |name, i|
+            puts "Enter #{i} for #{name}"
         end
-        puts "Enter #{AquaActivities::ActivityTime.all.length+1} for all times and details"
+        puts "Enter #{times.length+1} for all times and details"
         
-        user_input = get_input_to_integer
-        if user_input == (AquaActivities::ActivityTime.all.length+1)
+        user_input = get_input_to_index
+        if user_input == (times.length)
             AquaActivities::Formatting.slashes 
             AquaActivities::ActivityTime.print_all_times_details
             main_menu 
         elsif valid_time_option?(user_input)
-            print_time_details(user_input)
+            time = times[user_input]
+            print_time_details(time)
             main_menu 
         else 
             puts "Invalid menu option".colorize(:red)
@@ -100,21 +104,27 @@ class AquaActivities::CLI
     end
 
 
-    def print_activity_details(user_input)  
+    def print_activity_details(activity_name)  
         AquaActivities::Formatting.slashes       
-        chosen_activity = AquaActivities::Activity.all[user_input-1]
-        puts "\nActivity: #{chosen_activity.name}"
-        puts "  Time: #{chosen_activity.time}"
-        puts "  Room: #{chosen_activity.room}\n\n"
+        AquaActivities::Activity.all.each do |activity|
+            if activity.name == activity_name
+                puts "\nActivity: #{activity.name}"
+                puts "  Time: #{activity.time}"
+                puts "  Room: #{activity.room}\n\n"
+            end
+        end
     end
 
 
-    def print_time_details(user_input)
+    def print_time_details(activity_time)
         AquaActivities::Formatting.slashes 
-        chosen_time = AquaActivities::ActivityTime.all[user_input-1]
-        puts "\nTime: #{chosen_time.time}"
-        puts "  Activity: #{chosen_time.name}"
-        puts "  Room: #{chosen_time.room}\n\n"
+        AquaActivities::ActivityTime.all.each do |time|
+            if time.name == activity_time 
+                puts "\nTime: #{time.name}"
+                puts "  Activity: #{time.activity}"
+                puts "  Room: #{time.room}\n\n"
+            end
+        end
     end
 
 

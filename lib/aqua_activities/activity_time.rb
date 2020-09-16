@@ -1,6 +1,6 @@
 class AquaActivities::ActivityTime
 
-    attr_accessor :name, :time, :room 
+    attr_accessor :name, :activity, :room 
     @@all = [] 
 
 
@@ -16,8 +16,8 @@ class AquaActivities::ActivityTime
 
     def self.print_all_times_details
         @@all.each do |time|
-            puts "\nTime: #{time.time}"
-            puts "  Activity: #{time.name}"
+            puts "\nTime: #{time.name}"
+            puts "  Activity: #{time.activity}"
             puts "  Room: #{time.room}"
         end
     end

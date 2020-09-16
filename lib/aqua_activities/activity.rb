@@ -3,7 +3,7 @@ class AquaActivities::Activity
     attr_accessor :name, :time, :room 
     @@all = [] 
 
-    
+
     def initialize
         @@all << self 
     end
@@ -17,7 +17,7 @@ class AquaActivities::Activity
         @@all.each do |activity|
             puts "\nActivity: #{activity.name}"
             puts "  Time: #{activity.time}"
-            puts "  Room: #{activity.room}\n\n"
+            puts "  Room: #{activity.room}"
         end
     end
 end

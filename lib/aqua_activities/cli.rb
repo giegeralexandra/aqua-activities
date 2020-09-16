@@ -5,11 +5,13 @@ class AquaActivities::CLI
     def initialize(name = "Guest")
         @name = name 
         AquaActivities::Scraper.new.make_activity
+        AquaActivities::Formatting.banner
         greeting 
     end
 
 
     def greeting 
+        AquaActivities::Formatting.slashes 
         puts "\nHello #{name}! Welcome to The Dallas World Aquarium Feeding and Talks App!"
         puts "Activities are currently closed but please check out what we will have available soon.\n\n"
         main_menu
@@ -32,6 +34,7 @@ class AquaActivities::CLI
 
 
     def main_menu
+        AquaActivities::Formatting.slashes 
         puts "Would you like to view Activities by time or name? Please input a number from the below options."
         puts "Enter 1 to view all activity names"
         puts "Enter 2 to view all activity times"
@@ -45,13 +48,14 @@ class AquaActivities::CLI
         elsif user_input == 3
             exit_game 
         else 
-            puts "Invalid menu option."
+            puts "Invalid menu option.".colorize(:red)
             main_menu
         end
     end
 
 
     def activity_menu 
+        AquaActivities::Formatting.slashes 
         puts "\nPlease input a number from the options below to view the time and room of the activity chosen."
         AquaActivities::Activity.all.each.with_index(1) do |activity, i|
             puts "Enter #{i} for #{activity.name}"
@@ -60,19 +64,21 @@ class AquaActivities::CLI
         
         user_input = get_input_to_integer
         if user_input == (AquaActivities::Activity.all.length+1)
+            AquaActivities::Formatting.slashes 
             AquaActivities::Activity.print_all_activities_details
             main_menu
         elsif valid_activity_option?(user_input)
             print_activity_details(user_input)
             main_menu
         else 
-            puts "Invalid menu option."
+            puts "Invalid menu option.".colorize(:red)
             activity_menu 
         end
     end
 
 
     def time_menu 
+        AquaActivities::Formatting.slashes 
         puts "\nPlease input a number from the options below to view the activity and room of the time chosen."
         AquaActivities::ActivityTime.all.each.with_index(1) do |time, i|
             puts "Enter #{i} for #{time.time}"
@@ -81,19 +87,21 @@ class AquaActivities::CLI
         
         user_input = get_input_to_integer
         if user_input == (AquaActivities::ActivityTime.all.length+1)
+            AquaActivities::Formatting.slashes 
             AquaActivities::ActivityTime.print_all_times_details
             main_menu 
         elsif valid_time_option?(user_input)
             print_time_details(user_input)
             main_menu 
         else 
-            puts "Invalid menu option"
+            puts "Invalid menu option".colorize(:red)
             time_menu
         end
     end
 
 
-    def print_activity_details(user_input)        
+    def print_activity_details(user_input)  
+        AquaActivities::Formatting.slashes       
         chosen_activity = AquaActivities::Activity.all[user_input-1]
         puts "\nActivity: #{chosen_activity.name}"
         puts "  Time: #{chosen_activity.time}"
@@ -102,6 +110,7 @@ class AquaActivities::CLI
 
 
     def print_time_details(user_input)
+        AquaActivities::Formatting.slashes 
         chosen_time = AquaActivities::ActivityTime.all[user_input-1]
         puts "\nTime: #{chosen_time.time}"
         puts "  Activity: #{chosen_time.name}"
@@ -110,7 +119,8 @@ class AquaActivities::CLI
 
 
     def exit_game 
-        puts "\nThank you. See you again soon, #{name}!\n\n"
+        AquaActivities::Formatting.slashes 
+        puts "\nThank you. See you again soon, #{name}!\n\n".colorize(:red)
         exit 
     end
 

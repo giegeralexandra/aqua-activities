@@ -1,4 +1,6 @@
-# AquaActivities
+Hi, welcome to the Aqua_Activities Gem! 
+
+AquaActivities
 
 ## Installation
 
@@ -18,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-
+Using this gem will provide the user with details from The Dallas World Aquarium Feeding and Talks page. To run the application, run bin/aqua_activities.rb in the console. The application will greet the user and present a menu of options. The user may choose to view a list of activity names or activity times. Once the user chooses a time or activity to view, the details will appear in the console. They will then be redirected back to the main menu. 
 
 ## Development
 

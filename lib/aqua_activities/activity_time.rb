@@ -18,7 +18,7 @@ class AquaActivities::ActivityTime
         @@all.each do |time|
             puts "\nTime: #{time.time}"
             puts "  Activity: #{time.name}"
-            puts "  Room: #{time.room}\n\n"
+            puts "  Room: #{time.room}"
         end
     end
    

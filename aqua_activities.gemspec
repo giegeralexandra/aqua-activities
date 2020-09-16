@@ -27,4 +27,5 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.add_development_dependency 'pry'
   spec.add_dependency 'nokogiri'
+  spec.add_dependency 'colorize'
 end
